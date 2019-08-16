@@ -5,6 +5,8 @@ export const SMURF_FETCHED = 'SMURF_FETCHED';
 export const SMURF_ADDED = 'SMURF_ADDED';
 export const SMURF_ADD = 'SMURF_ADD';
 
+export const SMURF_DELETE = 'SMURF_DELETE';
+export const SMURF_DELETED = 'SMURF_DELETED';
 
 const rootURL = 'http://localhost:3333/smurfs';
 export const smurfFetch = () => {
@@ -31,6 +33,21 @@ export const smurfAdd = (smurf) => {
             .then(response => {
               console.log(response.data);
               dispatch({ type: SMURF_ADDED, payload: response.data });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+  }
+}
+export const smurfDelete = (smurf) => {
+  console.log(smurf);
+  const promise = axios.post(rootURL, smurf);
+  return dispatch => {
+    dispatch({type: SMURF_DELETE });
+        promise
+            .then(response => {
+              console.log(response.data);
+              dispatch({ type: SMURF_DELETED, payload: response.data });
             })
             .catch(err => {
               console.log(err);
